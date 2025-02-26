@@ -10,6 +10,7 @@ import {
   faCheck,
   faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
+import music from "./assets/music1.wav";
 import "./Chatbot.css";
 
 const Chatbot = () => {
@@ -21,7 +22,8 @@ const Chatbot = () => {
   const [opacity, setOpacity] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const autoScroll = useRef(null);
-
+  const autoFocus = useRef(null);
+  const playMusic = useRef(null);
   useEffect(() => {
     if (autoScroll.current) {
       autoScroll.current.scrollTop = autoScroll.current.scrollHeight;
@@ -58,18 +60,16 @@ const Chatbot = () => {
       const data = await response.json();
       console.log("API Response:", data);
 
-      const rawText =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "Sorry, I couldn't understand that.";
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       const botReply =
         rawText
           .replace(/\*\*/g, "") // Remove bold (**)
           .replace(/\*/g, "") // Remove italics (*)
-          .replace(/\n+/g, "\n") // Ensure proper single line breaks
-          .replace(/(?<![0-9]):\s*\n/g, ":\n• ") // Add bullet points only after colons that are NOT after a number
+          .replace(/\n{2,}/g, "\n\n") // Ensure double line breaks for paragraphs
+          .replace(/(?<!\d):\s*\n/g, ":\n• ") // Add bullets after colons NOT following a number
           .replace(/'''/g, "") // Remove triple single quotes
-          .replace(/\. (?=[A-Z])/g, ".\n") // Add line break after a period IF followed by an uppercase letter (prevents breaking decimal numbers)
+          .replace(/(?<!\b(?:Dr|Mr|Ms|Mrs|St|vs))\. (?=[A-Z])/g, ".\n") // Prevent breaking common abbreviations
           .trim() || "Sorry, I couldn't understand that.";
 
       setMessages((prevMessages) => [
@@ -96,8 +96,10 @@ const Chatbot = () => {
   };
 
   const handleMicBtn = () => {
-    if (!isActive) {
-      SpeechRecognition.startListening({ continuous: true });
+    if (!isActive || autoFocus.current || playMusic.current) {
+      SpeechRecognition.startListening({ continuous: true, lang: "en-IN" });
+      autoFocus.current.focus();
+      playMusic.current.play();
     } else {
       SpeechRecognition.stopListening();
     }
@@ -138,13 +140,15 @@ const Chatbot = () => {
             placeholder="Type here to explore..."
             value={userInputText}
             onChange={handleInputClick}
+            ref={autoFocus}
           />
           <FontAwesomeIcon
             icon={faMicrophone}
             className="mic-btn"
-            style={{ color: isActive ? "black" : "white" }}
+            style={{ color: isActive ? "cyan" : "white" }}
             onClick={handleMicBtn}
           />
+          <audio src={music} ref={playMusic}></audio>
           <button type="button" id="send" onClick={handleSendBtn}>
             <FontAwesomeIcon icon={faArrowUp} />
           </button>
