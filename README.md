@@ -12,7 +12,7 @@ Astro AI is an interactive chatbot built using React, Vite, HTML, CSS, and JavaS
 
 ## Screenshots
 
-![Astro AI Chatbot Screenshot](path_to_screenshot.png)
+![Astro AI Chatbot Screenshot](src/assets/screenshot.png)
 
 ## Technologies Used
 
