@@ -16,11 +16,12 @@ Astro AI is an interactive chatbot built using React, Vite, HTML, CSS, and JavaS
 
 ## Technologies Used
 
-- ![React Logo](path_to_react_logo.png) **React** (with Vite)
-- ![Google Logo](path_to_google_logo.png) **Google API (or custom data-fetching logic)**
-- ![HTML Logo](path_to_html_logo.png) **HTML**
-- ![CSS Logo](path_to_css_logo.png) **CSS**
-- ![JavaScript Logo](path_to_js_logo.png) **JavaScript**
+- <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="30"/> **React** (with Vite)
+- <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" width="30"/> **Google API (or custom data-fetching logic)**
+- <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML Logo" width="30"/> **HTML**
+- <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS Logo" width="30"/> **CSS**
+- <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo" width="30"/> **JavaScript**
+
 
 ## Usage
 
