@@ -48,16 +48,15 @@ const Chatbot = () => {
     try {
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: userInputText }] }],
+          contents: [{ role: "user", parts: [{ text: userInputText }] }],
         }),
       });
 
       const data = await response.json();
-
+      console.log("API Response:", data);
+      
       const rawText =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ||
         "Sorry, I couldn't understand that.";
