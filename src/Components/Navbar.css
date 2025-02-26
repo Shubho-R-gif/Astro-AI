@@ -1,0 +1,22 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #121122;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Navbar heading with gradient text */
+.nav-heading {
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  background: linear-gradient(to right, #0acdb3, #ff03c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor:default;
+  user-select: none;
+}
