@@ -32,9 +32,9 @@ const Chatbot = () => {
   }, [transcript]);
 
   const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`
-;
+  console.log("API Key:", API_KEY);
 
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
   const handleSendBtn = async () => {
     if (userInputText.trim() === "") return;
 
@@ -57,7 +57,7 @@ const Chatbot = () => {
 
       const data = await response.json();
       console.log("API Response:", data);
-      
+
       const rawText =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ||
         "Sorry, I couldn't understand that.";
