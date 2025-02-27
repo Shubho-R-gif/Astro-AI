@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1 className="nav-heading" onClick={handleClick}>
-        <Link to="/">Astro AI</Link>
+        <Link to="/">Astro</Link>
       </h1>
       <button type="button" className="login-btn">
         Login

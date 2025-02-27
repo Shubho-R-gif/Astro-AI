@@ -1,14 +1,6 @@
 import "./ChatopeningUI.css";
 import PropTypes from "prop-types";
 const ChatUI = ({ handleClick, zoomOut, loading }) => {
-  /*   const [zoomOut, setZoomOut] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = () => {
-    setZoomOut(true);
-    setLoading(true); // Show loading state
-  };
- */
   return (
     <>
       <div

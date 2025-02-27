@@ -88,8 +88,8 @@ input[type="text"] {
   border: none;
   border-radius: 30px;
   outline: none;
-  background: rgba(255, 255, 255, 0.236);
-  backdrop-filter: blur(50px);
+  background: unset;
+  border: 1px solid rgba(255, 255, 255, 0.24);
   color: white;
   margin-left: 5px;
 }
@@ -142,9 +142,19 @@ input[type="text"]:focus {
 .mic-btn {
   color: white;
   position: absolute;
-  left: 72%;
+  left: 19%;
+  transform: translateX(-2px);
   font-size: 1.4rem;
   cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 50%;
+  transition: all 0.4s linear;
+}
+
+.mic-btn:hover {
+  background-color: rgb(12, 87, 100);
+  color: white;
+  transition: all 0.4s linear;
 }
 
 @media screen and (max-width: 768px) {
@@ -154,6 +164,7 @@ input[type="text"]:focus {
     font-size: 24px;
   }
   .mic-btn {
+    top: 95%;
     left: 65%;
   }
   .chatBox {
@@ -176,7 +187,6 @@ input[type="text"]:focus {
   }
 
   .copy {
-   
     align-self: self-start;
     margin: 4px 14px;
   }
@@ -187,6 +197,7 @@ input[type="text"]:focus {
   }
   #send {
     padding: 14px 18px;
+    font-size: 0.9rem;
   }
   input[type="text"] {
     margin-left: 0px;
