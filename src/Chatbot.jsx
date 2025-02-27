@@ -39,19 +39,21 @@ const Chatbot = () => {
 
   const handleSendBtn = async () => {
     if (userInputText.trim() === "") return;
-
+    // Only keep the latest user message
     const newMessages = { text: userInputText, sender: "user" };
     setMessages((prevMessages) => [...prevMessages, newMessages]);
     setUserInputText(""); // Clear input field immediately
+
     SpeechRecognition.stopListening(); // Stop listening to reset transcript
-    autoFocus.current?.focus();
-    // Reset transcript after sending message
     SpeechRecognition.startListening({ continuous: false, lang: "en-IN" });
+
+    autoFocus.current?.focus(); // Keep input focused
 
     // Show typing indicator
     const typingMessage = { text: "Typing...", sender: "bot" };
     setMessages((prevMessages) => [...prevMessages, typingMessage]);
     setOpacity(false);
+
     try {
       const response = await fetch(API_URL, {
         method: "POST",
