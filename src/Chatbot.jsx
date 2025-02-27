@@ -87,7 +87,9 @@ const Chatbot = () => {
         { text: botReply, sender: "bot" },
       ]);
 
-
+      setTimeout(() => {
+        SpeechRecognition.startListening({ continuous: true, lang: "en-IN" });
+      }, 10);
     } catch (error) {
       console.error("Error fetching response:", error);
       setMessages((prevMessages) => [
