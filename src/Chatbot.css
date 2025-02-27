@@ -149,13 +149,12 @@ input[type="text"]:focus {
 
 @media screen and (max-width: 768px) {
   .chatbot-heading {
-    left: 6%;
-    transform: translateX(-2px);
+    transform: translateY(250px);
+    position: unset;
     font-size: 24px;
   }
   .mic-btn {
-    left: 70%;
-    top: 97%;
+    left: 65%;
   }
   .chatBox {
     margin-top: 0px;
@@ -177,13 +176,15 @@ input[type="text"]:focus {
   }
 
   .copy {
-    margin-top: 5px;
-    margin-right: 255px;
+    margin-top: 0px;
+    margin-right: 0px;
+    align-self: self-start;
+    margin: 4px 16px;
   }
   .text-container {
     padding: 10px;
     margin: 6px;
-    margin-top: 40px;
+    margin-top: 10px;
   }
   #send {
     padding: 14px 18px;

@@ -136,7 +136,10 @@ const Chatbot = () => {
     <>
       <h1
         className="chatbot-heading"
-        style={{ opacity: opacity ? 1 : 0, transition: "opacity 0.4s ease" }}
+        style={{
+          opacity: opacity ? 1 : 0,
+          transition: "opacity 0.4s ease-in-out",
+        }}
       >
         Let the conversation begin!
       </h1>
