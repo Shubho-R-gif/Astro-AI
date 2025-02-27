@@ -149,7 +149,7 @@ input[type="text"]:focus {
 
 @media screen and (max-width: 768px) {
   .chatbot-heading {
-    transform: translateY(240px);
+    transform: translateY(230px);
     position: unset;
     font-size: 24px;
   }

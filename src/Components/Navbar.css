@@ -1,8 +1,8 @@
 /* Navbar container */
 .navbar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   background-color: #121122;
   padding: 15px 20px;
 }
@@ -13,14 +13,18 @@
   font-size: 18px;
   font-weight: 500;
   background: linear-gradient(to right, #0acdb3, #ff03c4);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  cursor: default;
-  flex: 1;
+  display: inline-block;
   text-align: center;
   user-select: none;
-  margin-left: 100px;
+  margin: auto;
+  flex: none;
+  margin-left: 700px;
 }
+
+/* Login button */
 .login-btn {
   font-size: 1rem;
   font-family: sans-serif;
@@ -31,13 +35,19 @@
   transition: all 0.2s ease;
   margin-right: 20px;
 }
+
 .login-btn:active {
   background-color: rgb(33, 33, 33);
   color: white;
   transition: background-color 0.2s ease;
 }
 
+/* Responsive design */
 @media screen and (max-width: 768px) {
+  .nav-heading {
+    margin-left: 0px;
+    /* margin: auto; */
+  }
   .login-btn {
     font-size: 0.8rem;
     margin-right: 0px;
