@@ -42,7 +42,11 @@ const Chatbot = () => {
 
     const newMessages = { text: userInputText, sender: "user" };
     setMessages((prevMessages) => [...prevMessages, newMessages]);
-    setUserInputText("");
+    setUserInputText(""); // Clear input field immediately
+    SpeechRecognition.stopListening(); // Stop listening to reset transcript
+    autoFocus.current?.focus();
+    // Reset transcript after sending message
+    SpeechRecognition.startListening({ continuous: false, lang: "en-IN" });
 
     // Show typing indicator
     const typingMessage = { text: "Typing...", sender: "bot" };
@@ -58,8 +62,6 @@ const Chatbot = () => {
       });
 
       const data = await response.json();
-      console.log("API Response:", data);
-
       const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       const botReply =
@@ -70,12 +72,22 @@ const Chatbot = () => {
           .replace(/(?<!\d):\s*\n/g, ":\n• ") // Add bullets after colons NOT following a number
           .replace(/'''/g, "") // Remove triple single quotes
           .replace(/(?<!\b(?:Dr|Mr|Ms|Mrs|St|vs))\. (?=[A-Z])/g, ".\n") // Prevent breaking common abbreviations
+          .replace(
+            /\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g,
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+          ) // Convert Markdown links
+          .replace(
+            /(?<!href="|>\s*)(https?:\/\/[^\s]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+          ) // Convert plain URLs, ignoring already converted ones
           .trim() || "Sorry, I couldn't understand that.";
 
       setMessages((prevMessages) => [
         ...prevMessages.slice(0, -1), // Remove typing indicator
         { text: botReply, sender: "bot" },
       ]);
+
+
     } catch (error) {
       console.error("Error fetching response:", error);
       setMessages((prevMessages) => [
@@ -95,19 +107,27 @@ const Chatbot = () => {
     }, 1000);
   };
 
-  const handleMicBtn = () => {
-    if (!isActive || autoFocus.current || playMusic.current) {
-      SpeechRecognition.startListening({ continuous: true, lang: "en-IN" });
-      autoFocus.current.focus();
-      playMusic.current.play();
+  const handleMicBtn = async () => {
+    if (!browserSupportsSpeechRecognition) {
+      alert("Your browser does not support speech recognition.");
+      return;
+    }
+
+    if (!isActive) {
+      try {
+        await playMusic.current.play(); // Ensure immediate playback
+        SpeechRecognition.startListening({ continuous: true, lang: "en-IN" });
+        autoFocus.current?.focus();
+        setIsActive(true);
+      } catch (error) {
+        console.error("Audio playback error:", error);
+      }
     } else {
       SpeechRecognition.stopListening();
+      setIsActive(false);
     }
-    if (!browserSupportsSpeechRecognition) {
-      return <p>Your browser does not support speech recognition.</p>;
-    }
-    setIsActive(!isActive);
   };
+
   return (
     <>
       <h1
@@ -120,17 +140,18 @@ const Chatbot = () => {
         <div className="chatBox" ref={autoScroll}>
           {messages.map((msg, index) => (
             <div key={index} className="message">
-              <span className={msg.sender === "user" ? "userText" : "botText"}>
-                {msg.text}
-                {msg.sender === "bot" && (
-                  <FontAwesomeIcon
-                    icon={copiedIndex === index ? faCheck : faCopy}
-                    className="copy"
-                    onClick={() => handleCopy(msg.text, index)}
-                    onTouchStart={() => handleCopy(msg.text, index)}
-                  />
-                )}
-              </span>
+              <span
+                className={msg.sender === "user" ? "userText" : "botText"}
+                dangerouslySetInnerHTML={{ __html: msg.text }} //  Renders HTML safely
+              />
+              {msg.sender === "bot" && (
+                <FontAwesomeIcon
+                  icon={copiedIndex === index ? faCheck : faCopy}
+                  className="copy"
+                  onClick={() => handleCopy(msg.text, index)}
+                  onTouchStart={() => handleCopy(msg.text, index)}
+                />
+              )}
             </div>
           ))}
         </div>
@@ -148,7 +169,7 @@ const Chatbot = () => {
             style={{ color: isActive ? "cyan" : "white" }}
             onClick={handleMicBtn}
           />
-          <audio src={music} ref={playMusic}></audio>
+          <audio src={music} ref={playMusic} preload="auto"></audio>
           <button type="button" id="send" onClick={handleSendBtn}>
             <FontAwesomeIcon icon={faArrowUp} />
           </button>
