@@ -11,6 +11,9 @@ const Navbar = () => {
       <h1 className="nav-heading" onClick={handleClick}>
         <Link to="/">Astro AI</Link>
       </h1>
+      <button type="button" className="login-btn">
+        Login
+      </button>
     </nav>
   );
 };

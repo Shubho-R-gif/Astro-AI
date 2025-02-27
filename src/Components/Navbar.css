@@ -5,8 +5,7 @@
   justify-content: center;
   background-color: #121122;
   padding: 15px 20px;
-  position: relative;
-  z-index: 2;
+ 
 }
 
 /* Navbar heading with gradient text */
@@ -17,6 +16,25 @@
   background: linear-gradient(to right, #0acdb3, #ff03c4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  cursor:default;
+  cursor: default;
+  flex: 1;
+  text-align: center; /* Centers the text */
   user-select: none;
+  margin-left: 100px;
+}
+.login-btn {
+  font-size: 1rem;
+  font-family: sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 20px;
+
+}
+.login-btn:active {
+  background-color: rgb(33, 33, 33);
+  color: white;
+  transition: background-color 0.2s ease;
 }
